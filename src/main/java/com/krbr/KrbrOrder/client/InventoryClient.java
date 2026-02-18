@@ -19,12 +19,11 @@ public class InventoryClient {
         this.inventoryServiceProperties = inventoryServiceProperties;
     }
 
-    public List<InventoryDTO> getInventory(Integer productId) {
+    public InventoryDTO getInventory(Integer productId) {
         return webClient.get()
-                .uri(inventoryServiceProperties.getBaseUrl() + "/inventory/" + productId)
+                .uri(inventoryServiceProperties.getBaseUrl() + "/api/inventory/" + productId)
                 .retrieve()
-                .bodyToFlux(InventoryDTO.class)
-                .collectList()
+                .bodyToMono(InventoryDTO.class)
                 .block();
     }
 }

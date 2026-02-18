@@ -1,6 +1,7 @@
 package com.krbr.KrbrOrder.service;
 
 import com.krbr.KrbrOrder.client.InventoryClient;
+import com.krbr.KrbrOrder.dto.InventoryBatchDTO;
 import com.krbr.KrbrOrder.dto.InventoryDTO;
 import com.krbr.KrbrOrder.dto.request.CreateOrderRequest;
 import com.krbr.KrbrOrder.entity.Order;
@@ -35,8 +36,14 @@ public class OrderServiceImpl implements OrderService {
         System.out.println("productId " + productId);
         System.out.println("quantity " + quantity);
 
-        List<InventoryDTO> inventoryDTOS = inventoryClient.getInventory(productId);
+        InventoryDTO inventoryDTO = inventoryClient.getInventory(productId);
 
-        System.out.println(inventoryDTOS);
+        List<InventoryBatchDTO> inventoryBatchDTOS = inventoryDTO.getBatches();
+
+        System.out.println(inventoryDTO.getProductId() + ", " + inventoryDTO.getProductName());
+
+        inventoryBatchDTOS.forEach(inventoryBatchDTO -> {
+            System.out.println(inventoryBatchDTO.getBatchId() + ", " + inventoryBatchDTO.getQuantity() + ", " + inventoryBatchDTO.getExpiryDate());
+        });
     }
 }
