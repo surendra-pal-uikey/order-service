@@ -2,6 +2,7 @@ package com.krbr.KrbrOrder.controller;
 
 import com.krbr.KrbrOrder.dto.OrderDTO;
 import com.krbr.KrbrOrder.dto.request.CreateOrderRequest;
+import com.krbr.KrbrOrder.dto.response.OrderResponse;
 import com.krbr.KrbrOrder.entity.Order;
 import com.krbr.KrbrOrder.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public void createOrder(@RequestBody CreateOrderRequest createOrderRequest) {
-        try {
-            orderService.createOrder(createOrderRequest);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public OrderResponse createOrder(@RequestBody CreateOrderRequest createOrderRequest) throws Exception {
+        return orderService.createOrder(createOrderRequest);
     }
 
     private OrderDTO convertToDTO(Order order) {

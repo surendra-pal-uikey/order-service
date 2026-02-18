@@ -35,6 +35,15 @@ public class Order {
         return id;
     }
 
+    public Order(Integer orderId, Integer productId, String productName, Integer quantity, OrderStatus status, Date orderDate) {
+        this.orderId = orderId;
+        this.productId = productId;
+        this.productName = productName;
+        this.quantity = quantity;
+        this.status = status;
+        this.orderDate = orderDate;
+    }
+
     public Integer getOrderId() {
         return orderId;
     }
