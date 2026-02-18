@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-load-data
+      author: admin
+      changes:
+        - loadData:
+            schemaName: PUBLIC
+            tableName: ORDERS
+            file: classpath:db/changelog/data/order.csv
+            relativeToChangelogFile: false
+            header: true
+            separator: ","
+            usePreparedStatements: false
+            columns:
+              - column:
+                  header: order_id
+                  name: order_id
+                  type: INT
+              - column:
+                  header: product_id
+                  name: product_id
+                  type: INT
+              - column:
+                  header: product_name
+                  name: product_name
+                  type: VARCHAR
+              - column:
+                  header: quantity
+                  name: quantity
+                  type: INT
+              - column:
+                  header: status
+                  name: status
+                  type: VARCHAR(255)
+              - column:
+                  header: order_date
+                  name: order_date
+                  type: DATE

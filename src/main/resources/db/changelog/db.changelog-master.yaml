@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: classpath:db/changelog/001-create-order-tables.sql
+      relativeToChangelogFile: false
+  - include:
+      file: classpath:db/changelog/003-load-data.yaml
+      relativeToChangelogFile: false
