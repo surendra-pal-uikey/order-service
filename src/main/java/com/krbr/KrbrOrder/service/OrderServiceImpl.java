@@ -23,13 +23,13 @@ public class OrderServiceImpl implements OrderService {
     private static final SecureRandom RANDOM = new SecureRandom();
 
 
-    @Autowired
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
     private final InventoryClient inventoryClient;
 
-    public OrderServiceImpl(InventoryClient inventoryClient) {
+    public OrderServiceImpl(InventoryClient inventoryClient, OrderRepository orderRepository) {
         this.inventoryClient = inventoryClient;
+        this.orderRepository = orderRepository;
     }
 
     @Override

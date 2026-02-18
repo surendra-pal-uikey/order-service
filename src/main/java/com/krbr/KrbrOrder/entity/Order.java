@@ -35,6 +35,8 @@ public class Order {
         return id;
     }
 
+    public Order() {}
+
     public Order(Integer orderId, Integer productId, String productName, Integer quantity, OrderStatus status, Date orderDate) {
         this.orderId = orderId;
         this.productId = productId;

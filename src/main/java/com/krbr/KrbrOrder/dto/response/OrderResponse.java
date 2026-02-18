@@ -11,6 +11,8 @@ public class OrderResponse {
     private String reservedFromBatchIds;
     private String message;
 
+    public OrderResponse() {}
+
     public OrderResponse(Integer orderId, Integer productId, String productName, Integer quantity, OrderStatus status, String reservedFromBatchIds, String message) {
         this.orderId = orderId;
         this.productId = productId;
