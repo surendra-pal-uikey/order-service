@@ -26,7 +26,11 @@ public class OrderController {
 
     @PostMapping
     public void createOrder(@RequestBody CreateOrderRequest createOrderRequest) {
-        orderService.createOrder(createOrderRequest);
+        try {
+            orderService.createOrder(createOrderRequest);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private OrderDTO convertToDTO(Order order) {

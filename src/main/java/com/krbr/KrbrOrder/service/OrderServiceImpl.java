@@ -29,21 +29,23 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createOrder(CreateOrderRequest createOrderRequest) {
+    public void createOrder(CreateOrderRequest createOrderRequest) throws Exception {
         Integer productId = createOrderRequest.getProductId();
         Integer quantity = createOrderRequest.getQuantity();
-
-        System.out.println("productId " + productId);
-        System.out.println("quantity " + quantity);
 
         InventoryDTO inventoryDTO = inventoryClient.getInventory(productId);
 
         List<InventoryBatchDTO> inventoryBatchDTOS = inventoryDTO.getBatches();
 
-        System.out.println(inventoryDTO.getProductId() + ", " + inventoryDTO.getProductName());
 
-        inventoryBatchDTOS.forEach(inventoryBatchDTO -> {
-            System.out.println(inventoryBatchDTO.getBatchId() + ", " + inventoryBatchDTO.getQuantity() + ", " + inventoryBatchDTO.getExpiryDate());
-        });
+        Integer totalQty = 0;
+        for(InventoryBatchDTO inventoryBatchDTO :  inventoryBatchDTOS) {
+                totalQty += inventoryBatchDTO.getQuantity();
+                System.out.println(inventoryBatchDTO.getBatchId() + ", " + inventoryBatchDTO.getQuantity() + ", " + inventoryBatchDTO.getExpiryDate());
+        }
+
+        if (totalQty < quantity) {
+            throw new Exception("Quantity is not available for the productId " + productId + " Available: " + totalQty + " and Asked" + quantity);
+        }
     }
 }

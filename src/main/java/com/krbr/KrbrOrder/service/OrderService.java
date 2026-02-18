@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface OrderService {
     public List<Order> getAllOrders();
-    public void createOrder(CreateOrderRequest createOrderRequest);
+    public void createOrder(CreateOrderRequest createOrderRequest) throws Exception;
 }
