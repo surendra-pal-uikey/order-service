@@ -27,3 +27,6 @@ Tech Stack:
 - We are using H2 DB, so no need to set up the local
 - Need to install the Maven dependency
 - Run the main function of KrbrOrderApplication(make sure to run the inventory service as well before processing the order).
+- Your service will be available at [http://localhost:8082](http://localhost:8082)
+- Your H2 DB console will be at [http://localhost:8082/h2-console](http://localhost:8082/h2-console)
+
