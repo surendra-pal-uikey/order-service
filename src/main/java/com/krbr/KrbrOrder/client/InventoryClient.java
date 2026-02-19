@@ -22,7 +22,7 @@ public class InventoryClient {
 
     public InventoryDTO getInventory(Integer productId) {
         return webClient.get()
-                .uri(inventoryServiceProperties.getBaseUrl() + "/api/inventory/" + productId)
+                .uri(inventoryServiceProperties.getBaseUrl() + "/inventory/" + productId)
                 .retrieve()
                 .bodyToMono(InventoryDTO.class)
                 .block();
@@ -30,7 +30,7 @@ public class InventoryClient {
 
     public void updateInventory(UpdateInventoryRequest updateInventoryRequest) {
         webClient.post()
-                .uri(inventoryServiceProperties.getBaseUrl() + "/api/inventory/update")
+                .uri(inventoryServiceProperties.getBaseUrl() + "/inventory/update")
                 .bodyValue(updateInventoryRequest)
                 .retrieve()
                 .toBodilessEntity()
