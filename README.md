@@ -15,8 +15,9 @@ Requirement:
 Java17 JDK, IntellIJ
 
 Tech Stack:
-Language: Java
-Framework: Springboot
-Database: H2 in-memory DB, Liquibase(creating tables and loading initial data)
-Build Tool: Maven
-Tool for Inter-service communication: Web Client 
+- Language: Java
+- Framework: Springboot
+- Database: H2 in-memory DB, Liquibase(creating tables and loading initial data)
+- Build Tool: Maven
+- Tool for Inter-service communication: Web Client 
+
