@@ -8,8 +8,8 @@ Order service will have two endpoints to get the order details.
 
 Endpoints:
 
-GET /order - Returns a list of all the place orders.
-POST /order –  Places an order and updates inventory accordingly. 
+- GET /order - Returns a list of all the place orders.
+- POST /order –  Places an order and updates inventory accordingly. 
 
 Tech Stack:
 - Language: Java
@@ -34,5 +34,6 @@ git clone https://github.com/surendra-uikey_Koerber/order-service.git cd order-s
 - Run the main function of KrbrOrderApplication(make sure to run the inventory service as well before processing the order)(```bash mvn spring-boot:run```).
 - Your service will be available at [http://localhost:8082](http://localhost:8082)
 - Your H2 DB console will be at [http://localhost:8082/h2-console](http://localhost:8082/h2-console)
+
 
 
