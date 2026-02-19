@@ -21,3 +21,9 @@ Tech Stack:
 - Build Tool: Maven
 - Tool for Inter-service communication: Web Client 
 
+## Project setup instruction
+
+- You need to import this repository and open it in the IntellIJ
+- We are using H2 DB, so no need to set up the local
+- Need to install the Maven dependency
+- Run the main function of KrbrOrderApplication(make sure to run the inventory service as well before processing the order).
