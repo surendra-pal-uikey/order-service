@@ -2,6 +2,7 @@ package com.krbr.KrbrOrder.client;
 
 import com.krbr.KrbrOrder.config.InventoryServiceProperties;
 import com.krbr.KrbrOrder.dto.InventoryDTO;
+import com.krbr.KrbrOrder.dto.request.UpdateInventoryRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -24,6 +25,15 @@ public class InventoryClient {
                 .uri(inventoryServiceProperties.getBaseUrl() + "/api/inventory/" + productId)
                 .retrieve()
                 .bodyToMono(InventoryDTO.class)
+                .block();
+    }
+
+    public void updateInventory(UpdateInventoryRequest updateInventoryRequest) {
+        webClient.post()
+                .uri(inventoryServiceProperties.getBaseUrl() + "/api/inventory/update")
+                .bodyValue(updateInventoryRequest)
+                .retrieve()
+                .toBodilessEntity()
                 .block();
     }
 }

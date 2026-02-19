@@ -5,6 +5,7 @@ import com.krbr.KrbrOrder.dto.InventoryBatchDTO;
 import com.krbr.KrbrOrder.dto.InventoryDTO;
 import com.krbr.KrbrOrder.dto.request.CreateOrderRequest;
 import com.krbr.KrbrOrder.dto.request.InventoryUpdateRequest;
+import com.krbr.KrbrOrder.dto.request.UpdateInventoryRequest;
 import com.krbr.KrbrOrder.dto.response.OrderResponse;
 import com.krbr.KrbrOrder.entity.Order;
 import com.krbr.KrbrOrder.entity.OrderStatus;
@@ -60,29 +61,24 @@ public class OrderServiceImpl implements OrderService {
 
         for(InventoryBatchDTO inventoryBatchDTO :  inventoryBatchDTOS) {
             Integer qty = inventoryBatchDTO.getQuantity();
+            Integer remainingQty = quantity >= qty ? 0 : qty - quantity;
+
             if(quantity >= qty) {
                 quantity -= qty;
-                inventoryUpdateRequests.add(
-                        new InventoryUpdateRequest(
-                                inventoryBatchDTO.getBatchId(),
-                                inventoryDTO.getProductId(),
-                                inventoryDTO.getProductName(),
-                                0,
-                                inventoryBatchDTO.getExpiryDate()
-                        )
-                );
+
             } else {
-                inventoryUpdateRequests.add(
-                        new InventoryUpdateRequest(
-                                inventoryBatchDTO.getBatchId(),
-                                inventoryDTO.getProductId(),
-                                inventoryDTO.getProductName(),
-                                qty-quantity,
-                                inventoryBatchDTO.getExpiryDate()
-                        )
-                );
                 quantity = 0;
             }
+
+            inventoryUpdateRequests.add(
+                    new InventoryUpdateRequest(
+                            inventoryBatchDTO.getBatchId(),
+                            inventoryDTO.getProductId(),
+                            inventoryDTO.getProductName(),
+                            remainingQty,
+                            inventoryBatchDTO.getExpiryDate()
+                    )
+            );
 
             if(quantity == 0) {
                 break;
@@ -103,6 +99,12 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(order);
 
         System.out.println("order persisted in db");
+
+        UpdateInventoryRequest updateInventoryRequest = new UpdateInventoryRequest(
+                inventoryUpdateRequests
+        );
+
+        inventoryClient.updateInventory(updateInventoryRequest);
 
         return new OrderResponse(
                 orderId,
