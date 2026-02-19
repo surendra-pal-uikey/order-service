@@ -1,12 +1,15 @@
 ﻿# order-service
-We will maintain an inventory of materials/products.
+ 
+This micro-service will take care of the Orders. 
 
-Inventory service will be have three endpoints to get the inventory data.
+This service will talk to the Inventory service to get the available inventory, process the order, and then update the inventory accordingly
+
+Order service will have two endpoints to get the order details.
+
 Endpoints:
 
-GET /inventory - Returns a list of all inventory batches available.
-GET /inventory/{productId} – Returns a list of inventory batches sorted by expiry date.
-POST /inventory/update – Updates inventory after an order is placed. 
+GET /order - Returns a list of all the place orders.
+POST /order –  Places an order and updates inventory accordingly. 
 
 Requirement:
 Java17 JDK, IntellIJ
@@ -16,3 +19,4 @@ Language: Java
 Framework: Springboot
 Database: H2 in-memory DB, Liquibase(creating tables and loading initial data)
 Build Tool: Maven
+Tool for Inter-service communication: Web Client 
