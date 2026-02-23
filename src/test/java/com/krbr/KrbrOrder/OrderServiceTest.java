@@ -137,7 +137,7 @@ class OrderServiceTest {
 		createOrderRequest.setQuantity(quantity);
 
 		OrderResponse orderResponse =  orderServiceImpl.createOrder(createOrderRequest);
-		System.out.println(orderResponse.getOrderId());
+		assertEquals(5, orderResponse.getQuantity());
 
 	}
 
