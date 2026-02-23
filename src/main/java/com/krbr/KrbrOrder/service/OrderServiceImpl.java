@@ -56,6 +56,37 @@ public class OrderServiceImpl implements OrderService {
             throw new Exception("Quantity is not available for the productId " + productId + " Available: " + totalQty + " and Asked" + quantity);
         }
 
+        Integer orderId = generate4DigitNumber();
+
+        Order order = new Order(
+                orderId,
+                productId,
+                inventoryDTO.getProductName(),
+                createOrderRequest.getQuantity(),
+                OrderStatus.PLACED,
+                new Date()
+        );
+
+        orderRepository.save(order);
+
+        System.out.println("order persisted in db");
+
+        UpdateInventoryRequest updateInventoryRequest = prepareInventoryUpdateRequest(inventoryBatchDTOS, quantity, inventoryDTO);
+        inventoryClient.updateInventory(updateInventoryRequest);
+
+        return new OrderResponse(
+                orderId,
+                inventoryDTO.getProductId(),
+                inventoryDTO.getProductName(),
+                createOrderRequest.getQuantity(),
+                OrderStatus.PLACED,
+                "["+updateInventoryRequest.getInventoryUpdateRequests().size()+"]",
+                "Order placed. Inventory reserved."
+        );
+    }
+
+    private UpdateInventoryRequest prepareInventoryUpdateRequest(List<InventoryBatchDTO> inventoryBatchDTOS, Integer quantity, InventoryDTO inventoryDTO) {
+
         List<InventoryUpdateRequest> inventoryUpdateRequests = new ArrayList<>();
 
         for(InventoryBatchDTO inventoryBatchDTO :  inventoryBatchDTOS) {
@@ -84,36 +115,10 @@ public class OrderServiceImpl implements OrderService {
             }
         }
 
-        Integer orderId = generate4DigitNumber();
-
-        Order order = new Order(
-                orderId,
-                productId,
-                inventoryDTO.getProductName(),
-                createOrderRequest.getQuantity(),
-                OrderStatus.PLACED,
-                new Date()
-        );
-
-        orderRepository.save(order);
-
-        System.out.println("order persisted in db");
-
         UpdateInventoryRequest updateInventoryRequest = new UpdateInventoryRequest(
                 inventoryUpdateRequests
         );
-
-        inventoryClient.updateInventory(updateInventoryRequest);
-
-        return new OrderResponse(
-                orderId,
-                inventoryDTO.getProductId(),
-                inventoryDTO.getProductName(),
-                createOrderRequest.getQuantity(),
-                OrderStatus.PLACED,
-                "["+inventoryUpdateRequests.size()+"]",
-                "Order placed. Inventory reserved."
-        );
+        return updateInventoryRequest;
     }
 
     public static int generate4DigitNumber() {
