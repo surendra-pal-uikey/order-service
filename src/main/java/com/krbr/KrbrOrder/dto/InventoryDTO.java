@@ -7,6 +7,18 @@ public class InventoryDTO {
     private String productName;
     private List<InventoryBatchDTO> batches;
 
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public void setBatches(List<InventoryBatchDTO> batches) {
+        this.batches = batches;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
+
     // Constructors
     public InventoryDTO() {}
 

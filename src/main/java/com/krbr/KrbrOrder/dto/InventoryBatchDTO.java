@@ -7,6 +7,18 @@ public class InventoryBatchDTO {
     private Integer quantity;
     private Date expiryDate;
 
+    public void setBatchId(Integer batchId) {
+        this.batchId = batchId;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
     public Integer getBatchId() {
         return batchId;
     }

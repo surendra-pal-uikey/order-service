@@ -10,7 +10,6 @@ import com.krbr.KrbrOrder.dto.response.OrderResponse;
 import com.krbr.KrbrOrder.entity.Order;
 import com.krbr.KrbrOrder.entity.OrderStatus;
 import com.krbr.KrbrOrder.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
